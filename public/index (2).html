@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LectureAI - NIN Verification Signup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            background: #f5f5f5;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            background: #f5f5f5;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            background: white;
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .tab:hover {
+            background: #e8e8e8;
+        }
+
+        .tab.active:hover {
+            background: white;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .alert {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .info-text {
+            font-size: 13px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .user-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .user-info h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .user-info p {
+            font-size: 14px;
+            color: #333;
+            margin: 5px 0;
+        }
+
+        .user-info strong {
+            color: #667eea;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .test-info {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            color: #856404;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+
+        .test-info strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 LectureAI</h1>
+            <p>NIN-Verified Identity System</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('signup')">Sign Up</button>
+            <button class="tab" onclick="switchTab('login')">Login</button>
+        </div>
+
+        <div class="content">
+            <!-- SIGNUP FORM -->
+            <div id="signup-section" class="form-section active">
+                <div class="test-info">
+                    <strong>🧪 Testing Mode</strong>
+                    Enter your details to verify your NIN with Interswitch.
+                </div>
+
+                <div id="signup-alert" class="alert"></div>
+
+                <form id="signup-form">
+                    <div class="form-group">
+                        <label for="signup-firstname">First Name</label>
+                        <input 
+                            type="text" 
+                            id="signup-firstname" 
+                            name="firstName" 
+                            placeholder="Enter your first name"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-lastname">Last Name</label>
+                        <input 
+                            type="text" 
+                            id="signup-lastname" 
+                            name="lastName" 
+                            placeholder="Enter your last name"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-nin">National Identity Number (NIN)</label>
+                        <input 
+                            type="text" 
+                            id="signup-nin" 
+                            name="nin" 
+                            placeholder="Enter your 11-digit NIN"
+                            maxlength="11"
+                            required
+                        >
+                        <p class="info-text">Your NIN will be verified with Interswitch</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-email">Email Address</label>
+                        <input 
+                            type="email" 
+                            id="signup-email" 
+                            name="email" 
+                            placeholder="your.email@example.com"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input 
+                            type="password" 
+                            id="signup-password" 
+                            name="password" 
+                            placeholder="Create a strong password"
+                            minlength="6"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" class="btn" id="signup-btn">
+                        Create Account
+                    </button>
+                </form>
+
+                <div id="verified-user-info" class="user-info" style="display: none;"></div>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <div id="login-section" class="form-section">
+                <div id="login-alert" class="alert"></div>
+
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">Email Address</label>
+                        <input 
+                            type="email" 
+                            id="login-email" 
+                            name="email" 
+                            placeholder="your.email@example.com"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input 
+                            type="password" 
+                            id="login-password" 
+                            name="password" 
+                            placeholder="Enter your password"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" class="btn" id="login-btn">
+                        Login
+                    </button>
+                </form>
+
+                <div id="logged-user-info" class="user-info" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:5000';
+
+        // Tab switching
+        function switchTab(tab) {
+            const tabs = document.querySelectorAll('.tab');
+            const sections = document.querySelectorAll('.form-section');
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            sections.forEach(s => s.classList.remove('active'));
+            
+            if (tab === 'signup') {
+                tabs[0].classList.add('active');
+                document.getElementById('signup-section').classList.add('active');
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('login-section').classList.add('active');
+            }
+        }
+
+        // Show alert
+        function showAlert(elementId, message, type) {
+            const alert = document.getElementById(elementId);
+            alert.textContent = message;
+            alert.className = `alert alert-${type} show`;
+            
+            setTimeout(() => {
+                alert.classList.remove('show');
+            }, 5000);
+        }
+
+        // Display user info
+        function displayUserInfo(containerId, user) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = `
+                <h3>✅ Verification Successful</h3>
+                <p><strong>Name:</strong> ${user.firstName || 'N/A'} ${user.middleName || ''} ${user.lastName || 'N/A'}</p>
+                <p><strong>Email:</strong> ${user.email}</p>
+                <p><strong>NIN:</strong> ${user.nin}</p>
+                <p><strong>Phone:</strong> ${user.phoneNumber || 'N/A'}</p>
+                <p><strong>Gender:</strong> ${user.gender || 'N/A'}</p>
+                <p><strong>DOB:</strong> ${user.dateOfBirth || 'N/A'}</p>
+                <p><strong>Verified:</strong> ${user.verified ? 'Yes ✓' : 'No'}</p>
+            `;
+            container.style.display = 'block';
+        }
+
+        // Signup form handler
+        document.getElementById('signup-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btn = document.getElementById('signup-btn');
+            const originalText = btn.textContent;
+            
+            // Get form data - FIXED: Now correctly getting firstName and lastName
+            const formData = {
+                firstName: document.getElementById('signup-firstname').value.trim(),
+                lastName: document.getElementById('signup-lastname').value.trim(),
+                nin: document.getElementById('signup-nin').value.trim(),
+                email: document.getElementById('signup-email').value.trim(),
+                password: document.getElementById('signup-password').value
+            };
+
+            // Validate NIN
+            if (formData.nin.length !== 11) {
+                showAlert('signup-alert', 'NIN must be exactly 11 digits', 'error');
+                return;
+            }
+
+            console.log('Sending data:', formData); // Debug log
+
+            // Disable button and show loading
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading"></span> Verifying NIN...';
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/signup`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showAlert('signup-alert', data.message, 'success');
+                    displayUserInfo('verified-user-info', data.user);
+                    document.getElementById('signup-form').reset();
+                    
+                    // Auto-switch to login after 3 seconds
+                    setTimeout(() => {
+                        switchTab('login');
+                        document.getElementById('login-email').value = formData.email;
+                    }, 3000);
+                } else {
+                    showAlert('signup-alert', data.error + (data.details ? ': ' + data.details : ''), 'error');
+                }
+            } catch (error) {
+                console.error('Signup error:', error);
+                showAlert('signup-alert', 'Network error. Make sure your backend is running on port 5000.', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
+        });
+
+        // Login form handler
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btn = document.getElementById('login-btn');
+            const originalText = btn.textContent;
+            
+            const formData = {
+                email: document.getElementById('login-email').value.trim(),
+                password: document.getElementById('login-password').value
+            };
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading"></span> Logging in...';
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showAlert('login-alert', data.message, 'success');
+                    displayUserInfo('logged-user-info', data.user);
+                    document.getElementById('login-form').reset();
+                } else {
+                    showAlert('login-alert', data.error, 'error');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showAlert('login-alert', 'Network error. Make sure your backend is running on port 5000.', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
+        });
+
+        // Auto-fill NIN field on input (numbers only)
+        document.getElementById('signup-nin').addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\D/g, '');
+        });
+    </script>
+</body>
+</html>
