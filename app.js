@@ -6,7 +6,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const app = express();
 
-const { getInterswitchAppToken, verifyNIN } = require("./utility");
+
 
 
 app.use(cors());
@@ -19,13 +19,13 @@ const users = new Map();
 app.post("/api/signup", async (req, res) => {
   
   try {
-    const { firstName, lastName, nin, email, password } = req.body;
+    const { firstName, lastName, email, password } = req.body;
     
     // Validate input
-    if (!firstName || !lastName || !nin || !email || !password) {
+    if (!firstName || !lastName || !email || !password) {
       return res.status(400).json({
         success: false,
-        error: "All fields (firstName, lastName, NIN, email, password) are required"
+        error: "All fields (firstName, lastName, email, password) are required"
       });
     }
      
@@ -37,39 +37,7 @@ app.post("/api/signup", async (req, res) => {
       });
     }
     
-    // Step 1: Get Interswitch token
-    const token = await getInterswitchAppToken();
     
-    // Step 2: Verify NIN with Interswitch
-    const ninData = await verifyNIN(nin, firstName, lastName, token);
-
-    // Step 3: Check if NIN verification was successful
-    if (ninData.responseCode !== "00") {
-      return res.status(400).json({
-        success: false,
-        error: "NIN verification failed",
-        details: ninData.responseMessage
-      });
-    }
-
-    // Step 4: Extract verified user data from Interswitch response
-    const verifiedData = ninData.data || {};
-    
-    const userData = {
-      id: Date.now().toString(),
-      email,
-      password, // In production, hash this with bcrypt!
-      nin,
-      firstName: verifiedData.firstName || verifiedData.firstname,
-      lastName: verifiedData.lastName || verifiedData.surname || verifiedData.lastname,
-      middleName: verifiedData.middleName || verifiedData.middlename,
-      dateOfBirth: verifiedData.dateOfBirth || verifiedData.birthdate,
-      phoneNumber: verifiedData.phoneNumber || verifiedData.phone,
-      gender: verifiedData.gender,
-      verified: true,
-      createdAt: new Date().toISOString()
-    };
-
     // Step 5: Save to your database (currently in-memory)
     users.set(email, userData);
 
