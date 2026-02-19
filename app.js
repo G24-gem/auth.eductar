@@ -12,10 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// In-memory storage (replace with real database later)
-const users = new Map();
 
-// Signup endpoint with NIN verification
 app.post("/api/signup", async (req, res) => {
   
   try {
@@ -30,12 +27,7 @@ app.post("/api/signup", async (req, res) => {
     }
      
     // Check if user already exists
-    if (users.has(email)) {
-      return res.status(400).json({
-        success: false,
-        error: "User already exists"
-      });
-    }
+    
     
     
     // Step 5: Save to your database (currently in-memory)
